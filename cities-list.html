@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regions and Cities of Ukraine by Geography</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/open-sauce-one/1.0.1/opensauceone.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #005bbb;
+            --secondary-color: #ffd500;
+            --background-color: #ffffff;
+            --text-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sauce One', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.3;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .regions-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .region-section {
+            border: 1px solid #eee;
+            padding: 0.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .region-name {
+            font-weight: bold;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .cities-list {
+            list-style: none;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .city-item {
+            margin: 0.1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .regions-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .regions-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Regions and Cities of Ukraine</h1>
+        <div class="regions-container">
+            <!-- Eastern Ukraine -->
+            <div class="region-section">
+                <h2 class="section-title">Eastern Ukraine</h2>
+                
+                <h3 class="region-name">Donetsk</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Chasiv Yar</li>
+                    <li class="city-item">Dobropillya</li>
+                    <li class="city-item">Druzhkivka</li>
+                    <li class="city-item">Kostyantynivka</li>
+                    <li class="city-item">Kramatorsk</li>
+                    <li class="city-item">Kurakhova</li>
+                    <li class="city-item">Lyman</li>
+                    <li class="city-item">Myrnohrad</li>
+                    <li class="city-item">Niu York</li>
+                    <li class="city-item">Pokrovsk</li>
+                    <li class="city-item">Slovyansk</li>
+                </ul>
+
+                <h3 class="region-name">Kharkiv</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Babai</li>
+                    <li class="city-item">Barvinkove</li>
+                    <li class="city-item">Chuhuiv</li>
+                    <li class="city-item">Havrylivka</li>
+                    <li class="city-item">Hontarivka</li>
+                    <li class="city-item">Izyum</li>
+                    <li class="city-item">Krasnohrad</li>
+                    <li class="city-item">Kupyansk</li>
+                    <li class="city-item">Nova Vodolaha</li>
+                    <li class="city-item">Saltivka</li>
+                    <li class="city-item">Shevchenkove</li>
+                    <li class="city-item">Taranivka</li>
+                </ul>
+
+                <h3 class="region-name">Zaporizhzhia</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Zaporizhzhia</li>
+                    <li class="city-item">Zarichne</li>
+                </ul>
+            </div>
+
+            <!-- Northern Ukraine -->
+            <div class="region-section">
+                <h2 class="section-title">Northern Ukraine</h2>
+                
+                <h3 class="region-name">Kyiv</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Kyiv</li>
+                    <li class="city-item">Bucha</li>
+                    <li class="city-item">Irpin</li>
+                    <li class="city-item">Hostomel</li>
+                </ul>
+
+                <h3 class="region-name">Chernihiv</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Chernihiv</li>
+                    <li class="city-item">Mena</li>
+                </ul>
+
+                <h3 class="region-name">Sumy</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Sumy</li>
+                </ul>
+
+                <h3 class="region-name">Zhytomyr</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Zhytomyr</li>
+                    <li class="city-item">Berdychiv</li>
+                    <li class="city-item">Korosten</li>
+                    <li class="city-item">Nove Zhyttia</li>
+                </ul>
+            </div>
+
+            <!-- Southern Ukraine -->
+            <div class="region-section">
+                <h2 class="section-title">Southern Ukraine</h2>
+                
+                <h3 class="region-name">Odesa</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Odesa</li>
+                    <li class="city-item">Shyryaeve</li>
+                </ul>
+
+                <h3 class="region-name">Mykolaiv</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Snihurivka</li>
+                    <li class="city-item">Blahodatne</li>
+                </ul>
+
+                <h3 class="region-name">Kherson</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Kherson</li>
+                    <li class="city-item">Bilozerka</li>
+                    <li class="city-item">Ivanivka</li>
+                    <li class="city-item">Antonivka</li>
+                </ul>
+
+                <h3 class="region-name">Dnipro</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Dnipro</li>
+                    <li class="city-item">Gvardiyske</li>
+                    <li class="city-item">Mechnikov</li>
+                    <li class="city-item">Kryvyi Rih</li>
+                    <li class="city-item">Orlivshchyna</li>
+                    <li class="city-item">Pavlohrad</li>
+                </ul>
+            </div>
+
+            <!-- Western Ukraine -->
+            <div class="region-section">
+                <h2 class="section-title">Western Ukraine</h2>
+                
+                <h3 class="region-name">Lviv</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Lviv</li>
+                </ul>
+
+                <h3 class="region-name">Rivne</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Rivne</li>
+                </ul>
+
+                <h3 class="region-name">Ternopil</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Ternopil</li>
+                </ul>
+
+                <h3 class="region-name">Poltava</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Poltava</li>
+                </ul>
+
+                <h3 class="region-name">Kropyvnitsky</h3>
+                <ul class="cities-list">
+                    <li class="city-item">Kirovogradska</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
