@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ukraine Cities Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        .leaflet-popup-content {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="ukraine-borders.js"></script>
+    <script>
+        // Initialize the map centered on Ukraine
+        const map = L.map('map').setView([48.3794, 31.1656], 6);
+
+        // Add CartoDB Voyager tiles which use English names
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors, © CARTO',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Add Ukraine polygon using the loaded coordinates
+        L.polygon(ukraineBorders, {
+            color: 'blue',
+            weight: 2,
+            fillColor: 'yellow',
+            fillOpacity: 0.2
+        }).addTo(map);
+
+        // List of major Ukrainian cities with English names
+        const cities = [
+  {
+    "name": "Chernihiv",
+    "coordinates": [
+      51.272593,
+      31.7417235
+    ]
+  },
+  {
+    "name": "Mena",
+    "coordinates": [
+      51.52279,
+      32.21638
+    ]
+  },
+  {
+    "name": "Dnipro",
+    "coordinates": [
+      51.55671627970489,
+      30.612198102798057
+    ]
+  },
+  {
+    "name": "Mechnikov",
+    "coordinates": [
+      46.45261525,
+      30.75719293141323
+    ]
+  },
+  {
+    "name": "Kryvyi Rih",
+    "coordinates": [
+      47.9102734,
+      33.3917703
+    ]
+  },
+  {
+    "name": "Orlivshchyna",
+    "coordinates": [
+      48.659481,
+      35.362591
+    ]
+  },
+  {
+    "name": "Pavlohrad",
+    "coordinates": [
+      48.5316759,
+      35.8703695
+    ]
+  },
+  {
+    "name": "Chasiv Yar",
+    "coordinates": [
+      48.5873911,
+      37.8373367
+    ]
+  },
+  {
+    "name": "Druzhkivka",
+    "coordinates": [
+      48.6198614,
+      37.524945
+    ]
+  },
+  {
+    "name": "Kramatorsk",
+    "coordinates": [
+      48.7389415,
+      37.5843812
+    ]
+  },
+  {
+    "name": "Lyman",
+    "coordinates": [
+      48.9801314,
+      37.8168012
+    ]
+  },
+  {
+    "name": "Myrnohrad",
+    "coordinates": [
+      48.30791,
+      37.2591
+    ]
+  },
+  {
+    "name": "Niu York",
+    "coordinates": [
+      48.3320198,
+      37.8365875
+    ]
+  },
+  {
+    "name": "Pokrovsk",
+    "coordinates": [
+      48.2771086,
+      37.1772482
+    ]
+  },
+  {
+    "name": "Slovyansk",
+    "coordinates": [
+      48.8522691,
+      37.6058241
+    ]
+  },
+  {
+    "name": "Babai",
+    "coordinates": [
+      49.8914871,
+      36.20253
+    ]
+  },
+  {
+    "name": "Barvinkove",
+    "coordinates": [
+      48.9035037,
+      37.025111
+    ]
+  },
+  {
+    "name": "Chuhuiv",
+    "coordinates": [
+      49.836626,
+      36.6899391
+    ]
+  },
+  {
+    "name": "Havrylivka",
+    "coordinates": [
+      48.073769,
+      36.519932
+    ]
+  },
+  {
+    "name": "Hontarivka",
+    "coordinates": [
+      50.0734915,
+      36.9848478
+    ]
+  },
+  {
+    "name": "Izyum",
+    "coordinates": [
+      49.2160489,
+      37.3015645
+    ]
+  },
+  {
+    "name": "Krasnohrad",
+    "coordinates": [
+      49.3741326,
+      35.4494234
+    ]
+  },
+  {
+    "name": "Kupyansk",
+    "coordinates": [
+      49.7140121,
+      37.6321297
+    ]
+  },
+  {
+    "name": "Nova Vodolaha",
+    "coordinates": [
+      49.7181212,
+      35.8601594
+    ]
+  },
+  {
+    "name": "Saltivka",
+    "coordinates": [
+      50.0040801,
+      36.3428695
+    ]
+  },
+  {
+    "name": "Shevchenkove",
+    "coordinates": [
+      49.6949729,
+      37.1753112
+    ]
+  },
+  {
+    "name": "Taranivka",
+    "coordinates": [
+      49.616661,
+      36.151199
+    ]
+  },
+  {
+    "name": "Kherson",
+    "coordinates": [
+      46.5421715,
+      33.4079326
+    ]
+  },
+  {
+    "name": "Bilozerka",
+    "coordinates": [
+      46.63078,
+      32.44537
+    ]
+  },
+  {
+    "name": "Ivanivka",
+    "coordinates": [
+      48.23788,
+      38.9352
+    ]
+  },
+  {
+    "name": "Antonivka",
+    "coordinates": [
+      46.6766197,
+      32.7310644
+    ]
+  },
+  {
+    "name": "Kirovogradska",
+    "coordinates": [
+      48.1916774,
+      31.6902953
+    ]
+  },
+  {
+    "name": "Kyiv",
+    "coordinates": [
+      50.4500336,
+      30.5241361
+    ]
+  },
+  {
+    "name": "Bucha",
+    "coordinates": [
+      50.5503127,
+      30.2106925
+    ]
+  },
+  {
+    "name": "Irpin",
+    "coordinates": [
+      50.5206777,
+      30.2448725
+    ]
+  },
+  {
+    "name": "Hostomel",
+    "coordinates": [
+      50.58826,
+      30.25909
+    ]
+  },
+  {
+    "name": "Lviv",
+    "coordinates": [
+      49.841952,
+      24.0315921
+    ]
+  },
+  {
+    "name": "Snihurivka",
+    "coordinates": [
+      47.070721,
+      32.7924643
+    ]
+  },
+  {
+    "name": "Blahodatne",
+    "coordinates": [
+      47.6992867,
+      37.4193794
+    ]
+  },
+  {
+    "name": "Odesa",
+    "coordinates": [
+      46.4843023,
+      30.7322878
+    ]
+  },
+  {
+    "name": "Poltava",
+    "coordinates": [
+      49.8607809,
+      33.7498787
+    ]
+  },
+  {
+    "name": "Rivne",
+    "coordinates": [
+      51.2074112,
+      26.5208033
+    ]
+  },
+  {
+    "name": "Sumy",
+    "coordinates": [
+      50.9119775,
+      34.8027723
+    ]
+  },
+  {
+    "name": "Ternopil",
+    "coordinates": [
+      49.6630002,
+      25.6167516
+    ]
+  },
+  {
+    "name": "Zaporizhzhia",
+    "coordinates": [
+      47.8507859,
+      35.1182867
+    ]
+  },
+  {
+    "name": "Zarichne",
+    "coordinates": [
+      49.0212883,
+      37.9385185
+    ]
+  },
+  {
+    "name": "Zhytomyr",
+    "coordinates": [
+      50.9080532,
+      28.3867504
+    ]
+  },
+  {
+    "name": "Berdychiv",
+    "coordinates": [
+      49.8940442,
+      28.5814912
+    ]
+  },
+  {
+    "name": "Korosten",
+    "coordinates": [
+      50.9491068,
+      28.6417552
+    ]
+  },
+  {
+    "name": "Nove Zhyttia",
+    "coordinates": [
+      49.4070274,
+      29.9327252
+    ]
+  }
+];
+
+        // Add markers for each city
+        cities.forEach(city => {
+            L.marker(city.coordinates)
+                .bindPopup(`<b>${city.name}</b>`)
+                .addTo(map);
+        });
+    </script>
+</body>
+</html>
