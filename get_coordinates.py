@@ -3,14 +3,20 @@ from geopy.exc import GeocoderTimedOut
 import time
 import json
 
-def get_coordinates(city, country="Ukraine"):
-    """Get coordinates for a given city."""
+def get_coordinates(city, region, country="Ukraine"):
+    """Get coordinates for a given city and region."""
     geolocator = Nominatim(user_agent="my_agent")
     try:
-        # Add country to make search more precise
+        # Try with region first
+        location = geolocator.geocode(f"{city}, {region} Oblast, {country}")
+        if location:
+            return {"coords": [location.latitude, location.longitude], "with_region": True}
+        
+        # Fallback to city and country
         location = geolocator.geocode(f"{city}, {country}")
         if location:
-            return [location.latitude, location.longitude]
+            return {"coords": [location.latitude, location.longitude], "with_region": False}
+        
         return None
     except GeocoderTimedOut:
         return None
@@ -18,13 +24,13 @@ def get_coordinates(city, country="Ukraine"):
 # Dictionary of regions and their cities
 regions_cities = {
     "Chernihiv": ["Chernihiv", "Mena"],
-    "Dnipro": ["Dnipro", "Gvardiyske", "Mechnikov", "Kryvyi Rih", "Orlivshchyna", "Pavlohrad"],
+    "Dnipropetrovsk": ["Dnipro", "Gvardiyske", "Mechnikov", "Kryvyi Rih", "Orlivshchyna", "Pavlohrad"],
     "Donetsk": ["Chasiv Yar", "Dobropillya", "Druzhkivka", "Kostyantynivka", "Kramatorsk", 
-                "Kurakhova", "Lyman", "Myrnohrad", "Niu York", "Pokrovsk", "Slovyansk"],
+                "Kurakhove", "Lyman", "Myrnohrad", "Niu York", "Pokrovsk", "Slovyansk"],
     "Kharkiv": ["Babai", "Barvinkove", "Chuhuiv", "Havrylivka", "Hontarivka", "Izyum", 
                 "Krasnohrad", "Kupyansk", "Nova Vodolaha", "Saltivka", "Shevchenkove", "Taranivka"],
     "Kherson": ["Kherson", "Bilozerka", "Ivanivka", "Antonivka"],
-    "Kropyvnitsky": ["Kirovogradska"],
+    "Kirovogradska": ["Kropyvnytskyi"],
     "Kyiv": ["Kyiv", "Bucha", "Irpin", "Hostomel"],
     "Lviv": ["Lviv"],
     "Mykolaiv": ["Snihurivka", "Blahodatne"],
@@ -39,34 +45,53 @@ regions_cities = {
 
 def main():
     cities_data = []
+    found_with_region = []
+    found_without_region = []
+    not_found = []
     
     # Process each city in each region
     for region, cities in regions_cities.items():
         for city in cities:
-            print(f"Processing {city}...")
-            coords = get_coordinates(city)
+            print(f"Processing {city} in {region} region...")
+            result = get_coordinates(city, region)
             
-            if coords:
+            if result:
                 city_data = {
                     "name": city,
-                    "coordinates": coords
+                    "coordinates": result["coords"]
                 }
                 cities_data.append(city_data)
+                
+                if result["with_region"]:
+                    found_with_region.append(f"{city} ({region})")
+                else:
+                    found_without_region.append(f"{city} ({region})")
             else:
-                print(f"Could not find coordinates for {city}")
+                not_found.append(f"{city} ({region})")
+                print(f"Could not find coordinates for {city}, {region}")
             
-            # Add delay to avoid hitting rate limits
             time.sleep(1)
     
-    # Convert to JSON format
+    # Convert to JSON format and save
     json_data = json.dumps(cities_data, indent=2, ensure_ascii=False)
-    
-    # Save to file
     with open('ukrainian_cities.json', 'w', encoding='utf-8') as f:
         f.write(json_data)
     
+    # Print summary
     print("\nProcess completed. Data saved to 'ukrainian_cities.json'")
-    print(f"Successfully processed {len(cities_data)} cities")
+    print(f"\nCities found with region ({len(found_with_region)}):")
+    for city in found_with_region:
+        print(f"- {city}")
+        
+    print(f"\nCities found without region ({len(found_without_region)}):")
+    for city in found_without_region:
+        print(f"- {city}")
+        
+    print(f"\nCities not found ({len(not_found)}):")
+    for city in not_found:
+        print(f"- {city}")
+    
+    print(f"\nTotal cities processed: {len(cities_data)} out of {sum(len(cities) for cities in regions_cities.values())}")
 
 if __name__ == "__main__":
     main()
